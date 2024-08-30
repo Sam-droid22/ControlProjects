@@ -15,10 +15,9 @@ return new class extends Migration
             $table->text('description');
             $table->bigInteger('total_price');
             $table->date('start_date');
-            $table->date('due_date');
             $table->date('delivery_date')->nullable();
+            $table->date('review_date')->nullable(); 
             $table->string('status');
-            $table->date('host_expiration_date')->nullable();
             $table->timestamps();
         });
     }
