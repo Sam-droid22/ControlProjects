@@ -19,7 +19,16 @@ class ImportantDateResource extends Resource
 {
     protected static ?string $model = ImportantDate::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar';
+
+    // Cambia el nombre en la navegación
+    protected static ?string $navigationLabel = 'Fechas Importantes';
+
+    // Cambia el nombre en plural
+    protected static ?string $pluralModelLabel = 'Fechas Importantes';
+
+    // Cambia el nombre en singular
+    protected static ?string $modelLabel = 'Fecha Importante';
 
     public static function form(Form $form): Form
     {
@@ -88,8 +97,18 @@ class ImportantDateResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(ImportantDate::latest()->limit(5))
+            ->recordUrl(fn (ImportantDate $record): string => route('filament.admin.resources.important-dates.edit', ['record' => $record]))
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('date')
+                    ->label('Fecha')
+                    ->date('d/m/Y'),
+                Tables\Columns\TextColumn::make('description')
+                    ->label('Descripción')
+                    ->searchable(),
             ])
             ->filters([
                 //
@@ -117,8 +136,43 @@ class ImportantDateResource extends Resource
         return [
             'index' => Pages\ListImportantDates::route('/'),
             'create' => Pages\CreateImportantDate::route('/create'),
-            'view' => Pages\ViewImportantDate::route('/{record}'),
             'edit' => Pages\EditImportantDate::route('/{record}/edit'),
         ];
+    }
+
+    // Personaliza los títulos de las acciones
+    public static function getModelLabel(): string
+    {
+        return 'Fecha Importante';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Fechas Importantes';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Fechas Importantes';
+    }
+
+    public static function getCreateButtonLabel(): string
+    {
+        return 'Nueva Fecha Importante';
+    }
+
+    public static function getEditButtonLabel(): string
+    {
+        return 'Editar Fecha Importante';
+    }
+
+    public static function getDeleteButtonLabel(): string
+    {
+        return 'Eliminar Fecha Importante';
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

@@ -10,6 +10,8 @@ class ListProjects extends ListRecords
 {
     protected static string $resource = ProjectsResource::class;
 
+    protected static ?string $title = 'Lista de Proyectos';
+
     protected function getHeaderActions(): array
     {
         return [

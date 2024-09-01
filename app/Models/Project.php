@@ -33,4 +33,14 @@ class Project extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
+    public function importantDates()
+    {
+        return $this->hasMany(ImportantDate::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

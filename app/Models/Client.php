@@ -21,9 +21,6 @@ class Client extends Model
         'email_verified_at' => 'datetime',  
     ];
 
-    /**
-     * Get the projects for the client.
-     */
     public function project(): HasMany
     {
         return $this->hasMany(Project::class);

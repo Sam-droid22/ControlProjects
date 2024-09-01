@@ -10,6 +10,8 @@ class EditImportantDate extends EditRecord
 {
     protected static string $resource = ImportantDateResource::class;
 
+    protected static ?string $title = 'Editar Fecha Importante';
+
     protected function getHeaderActions(): array
     {
         return [

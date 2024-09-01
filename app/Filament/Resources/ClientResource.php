@@ -17,7 +17,16 @@ class ClientResource extends Resource
 {
     protected static ?string $model = Client::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+
+    // Cambia el nombre en la navegación
+    protected static ?string $navigationLabel = 'Clientes';
+
+    // Cambia el nombre en plural
+    protected static ?string $pluralModelLabel = 'Clientes';
+
+    // Cambia el nombre en singular
+    protected static ?string $modelLabel = 'Cliente';
 
     public static function form(Form $form): Form
     {
@@ -108,5 +117,41 @@ class ClientResource extends Resource
             'view' => Pages\ViewClient::route('/{record}'),
             'edit' => Pages\EditClient::route('/{record}/edit'),
         ];
+    }
+
+    // Personaliza los títulos de las acciones
+    public static function getModelLabel(): string
+    {
+        return 'Cliente';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Clientes';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Clientes';
+    }
+
+    public static function getCreateButtonLabel(): string
+    {
+        return 'Nuevo Cliente';
+    }
+
+    public static function getEditButtonLabel(): string
+    {
+        return 'Editar Cliente';
+    }
+
+    public static function getDeleteButtonLabel(): string
+    {
+        return 'Eliminar Cliente';
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

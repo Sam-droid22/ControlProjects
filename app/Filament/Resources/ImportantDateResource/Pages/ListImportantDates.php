@@ -10,6 +10,8 @@ class ListImportantDates extends ListRecords
 {
     protected static string $resource = ImportantDateResource::class;
 
+    protected static ?string $title = 'Fechas Importantes';
+
     protected function getHeaderActions(): array
     {
         return [

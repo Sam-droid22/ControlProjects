@@ -19,6 +19,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ClientResource;
+use App\Filament\Resources\ProjectResource\RelationManagers\ImportantDatesRelationManager;
+use App\Filament\Resources\ProjectResource\RelationManagers\TransactionsRelationManager;
 
 class ProjectsResource extends Resource
 {
@@ -66,7 +68,6 @@ class ProjectsResource extends Resource
                     ->label('Fecha de Entrega'),
                 Forms\Components\TextInput::make('total_price')
                     ->label('Precio Total')
-                    // ->numeric()
                     ->prefix('₲')
                     ->afterStateUpdated(function (Get $get, Set $set, ?string $state) {
                         if ($state !== null) {
@@ -129,7 +130,8 @@ class ProjectsResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ImportantDatesRelationManager::class,
+            TransactionsRelationManager::class,
         ];
     }
 
@@ -141,5 +143,39 @@ class ProjectsResource extends Resource
             'view' => Pages\ViewProjects::route('/{record}'),
             'edit' => Pages\EditProjects::route('/{record}/edit'),
         ];
+    }
+    // Personaliza los títulos de las acciones
+    public static function getModelLabel(): string
+    {
+        return 'Proyecto';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Proyectos';
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Proyectos';
+    }
+
+    public static function getCreateButtonLabel(): string
+    {
+        return 'Nuevo Proyecto';
+    }
+
+    public static function getEditButtonLabel(): string
+    {
+        return 'Editar Proyecto';
+    }
+
+    public static function getDeleteButtonLabel(): string
+    {
+        return 'Eliminar Proyecto';
+    }
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }
