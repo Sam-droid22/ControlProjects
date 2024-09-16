@@ -35,33 +35,33 @@ class ProjectResource extends Resource
                     ->preload()
                     ->createOptionForm([
                         Section::make()
-                        ->schema([
-                            Forms\Components\TextInput::make('name')
-                            ->label('Nombre Cliente:')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\Select::make('id_type')
-                            ->label('Tipo de identificación:')
-                            ->options([
-                                'ci' => 'Cedula de Identidad',
-                                'ruc' => 'R.U.C',
-                            ])
-                            ->required(),
-                        Forms\Components\TextInput::make('number')
-                            ->label('Numero:')
-                            ->placeholder('Número de RUC o CI'),
-                        Forms\Components\TextInput::make('email')
-                            ->label('Correo Electrónico:')
-                            ->email(),
-                        Forms\Components\TextInput::make('phone')
-                            ->label('Tel:')
-                            ->tel()
-                            ->placeholder('0975555555')
-                            ->required(),
-                        Forms\Components\TextInput::make('address')
-                            ->label('Dirección')
-                            ->required(),
-                        ])->columns(2),
+                            ->schema([
+                                Forms\Components\TextInput::make('name')
+                                    ->label('Nombre Cliente:')
+                                    ->required()
+                                    ->maxLength(255),
+                                Forms\Components\Select::make('id_type')
+                                    ->label('Tipo de identificación:')
+                                    ->options([
+                                        'ci' => 'Cedula de Identidad',
+                                        'ruc' => 'R.U.C',
+                                    ])
+                                    ->required(),
+                                Forms\Components\TextInput::make('number')
+                                    ->label('Numero:')
+                                    ->placeholder('Número de RUC o CI'),
+                                Forms\Components\TextInput::make('email')
+                                    ->label('Correo Electrónico:')
+                                    ->email(),
+                                Forms\Components\TextInput::make('phone')
+                                    ->label('Tel:')
+                                    ->tel()
+                                    ->placeholder('0975555555')
+                                    ->required(),
+                                Forms\Components\TextInput::make('address')
+                                    ->label('Dirección')
+                                    ->required(),
+                            ])->columns(2),
                     ]),
                 Section::make()->schema([
                     Forms\Components\Select::make('status')
@@ -75,9 +75,9 @@ class ProjectResource extends Resource
                         ])
                         ->default('pending'),
                     Forms\Components\DatePicker::make('start_date')
-                    ->label('Fecha Inicio:'),
+                        ->label('Fecha Inicio:'),
                     Forms\Components\DatePicker::make('end_date')
-                    ->label('Fecha de entrega:'),
+                        ->label('Fecha de entrega:'),
                     Forms\Components\TextInput::make('price')
                         ->label('Precio')
                         ->placeholder(0)
