@@ -11,11 +11,11 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('id_type',['ci', 'ruc']);
-            $table->string('id_number');
-            $table->string('email');
+            $table->enum('id_type',['ci', 'ruc'])->default('ci');
+            $table->string('id_number')->nullable();
+            $table->string('email')->nullable();
             $table->string('phone');
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }

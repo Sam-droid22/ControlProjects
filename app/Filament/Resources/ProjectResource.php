@@ -24,8 +24,10 @@ class ProjectResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')->label('Proyecto:')
-                    ->required(),
+                Forms\Components\TextInput::make('title')
+                    ->label('Proyecto:')
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\Select::make('client_id')
                     ->label('Cliente:')
                     ->relationship('clients', 'name')
