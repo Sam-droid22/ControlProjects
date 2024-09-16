@@ -2,26 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Client extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'name',
+        'id_type',
+        'id_number',
         'email',
         'phone',
-        'address',
-        'ruc',
-        'last_name',
-        'business_name',
+        'address'
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',  
-    ];
-
-    public function project(): HasMany
+    public function ptojects()
     {
         return $this->hasMany(Project::class);
     }

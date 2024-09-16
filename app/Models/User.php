@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -43,5 +44,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class. 'assigned_to');
+    }
+
+    public function adds()
+    {
+        return $this->hasMany(Add::class, 'added_by');
+    }
+
+    public function hasRole($role)
+    {
+        return $this->role === $role;
     }
 }

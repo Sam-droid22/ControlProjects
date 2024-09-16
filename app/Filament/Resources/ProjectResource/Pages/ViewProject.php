@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\ClientResource\Pages;
+namespace App\Filament\Resources\ProjectResource\Pages;
 
-use App\Filament\Resources\ClientResource;
+use App\Filament\Resources\ProjectResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 
-class ViewClient extends ViewRecord
+class ViewProject extends ViewRecord
 {
-    protected static string $resource = ClientResource::class;
+    protected static string $resource = ProjectResource::class;
 
     protected function getHeaderActions(): array
     {

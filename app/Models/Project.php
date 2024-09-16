@@ -2,45 +2,30 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Project extends Model
 {
+    use HasFactory;
     protected $fillable = [
-        'client_id',
-        'name',
+        'title',
         'description',
-        'total_price',
-        'start_date',
-        'due_date',
-        'delivery_date',
-        'review_date',
         'status',
-        'host_expiration_date',
+        'client_id',
+        'start_date',
+        'end_date',
+        'price',
+        'url'
     ];
 
-    protected $casts = [
-        'start_date' => 'date',
-        'due_date' => 'date',
-        'delivery_date' => 'date',
-        'review_date' => 'date',
-        'host_expiration_date' => 'date',
-        'total_price' => 'integer',
-    ];
+    public function adds()
+    {
+        return $this->hasMany(Add::class);
+    }
 
-    public function client(): BelongsTo
+    public function clients()
     {
         return $this->belongsTo(Client::class);
-    }
-
-    public function importantDates()
-    {
-        return $this->hasMany(ImportantDate::class);
-    }
-
-    public function transactions()
-    {
-        return $this->hasMany(Transaction::class);
     }
 }
