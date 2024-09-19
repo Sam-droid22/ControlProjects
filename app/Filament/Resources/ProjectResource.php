@@ -28,7 +28,7 @@ class ProjectResource extends Resource
                     ->label('Proyecto:')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('client_id')
+                Forms\Components\Select::make('clients_id')
                     ->label('Cliente:')
                     ->relationship('clients', 'name')
                     ->searchable()
@@ -46,17 +46,27 @@ class ProjectResource extends Resource
                                         'ci' => 'Cedula de Identidad',
                                         'ruc' => 'R.U.C',
                                     ])
+                                    ->default('ci')
                                     ->required(),
-                                Forms\Components\TextInput::make('number')
-                                    ->label('Numero:')
-                                    ->placeholder('Número de RUC o CI'),
+                                Forms\Components\TextInput::make('id_number')
+                                    ->label('Número:')
+                                    ->inputMode('numeric')
+                                    ->placeholder('RUC o C.I.')
+                                    ->mask('9999999-9')
+                                    ->extraInputAttributes(['pattern' => '[0-9\-]*'])
+                                    ->maxLength(11),
                                 Forms\Components\TextInput::make('email')
                                     ->label('Correo Electrónico:')
                                     ->email(),
                                 Forms\Components\TextInput::make('phone')
                                     ->label('Tel:')
                                     ->tel()
-                                    ->placeholder('0975555555')
+                                    ->inputMode('numeric')
+                                    ->prefix(+595)
+                                    ->placeholder('Ej: 975555555')
+                                    ->mask('999999999')
+                                    ->extraInputAttributes(['pattern' => '[0-9]*'])
+                                    ->maxLength(9)
                                     ->required(),
                                 Forms\Components\TextInput::make('address')
                                     ->label('Dirección')
@@ -64,6 +74,8 @@ class ProjectResource extends Resource
                             ])->columns(2),
                     ]),
                 Section::make()->schema([
+                    Forms\Components\DatePicker::make('start_date')
+                        ->label('Fecha Inicio:'),
                     Forms\Components\Select::make('status')
                         ->label('Estado:')
                         ->options([
@@ -74,13 +86,15 @@ class ProjectResource extends Resource
                             'completed' => 'Terminado'
                         ])
                         ->default('pending'),
-                    Forms\Components\DatePicker::make('start_date')
-                        ->label('Fecha Inicio:'),
+                    
                     Forms\Components\DatePicker::make('end_date')
                         ->label('Fecha de entrega:'),
                     Forms\Components\TextInput::make('price')
                         ->label('Precio')
+                        ->inputMode('numeric')
                         ->placeholder(0)
+                        ->mask(999999999)
+                        ->extraInputAttributes(['pattern' => '[0-9]*'])
                         ->prefix('₲'),
                 ])->columns(4),
 
@@ -129,8 +143,9 @@ class ProjectResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                // Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

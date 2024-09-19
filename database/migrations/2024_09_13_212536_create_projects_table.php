@@ -11,13 +11,13 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description')->nullable();
-            $table->enum('status', ['budget','pending', 'in_proces', 'completed', 'on_hold'])->default('pending')->nullable();
-            $table->foreignId('client_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('clients_id')->nullable()->constrained()->onDelete('cascade');
             $table->date('start_date')->nullable();
+            $table->enum('status', ['budget','pending', 'in_proces', 'completed', 'on_hold'])->default('pending')->nullable();
             $table->date('end_date')->nullable();
             $table->bigInteger('price')->nullable();
             $table->string('url')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

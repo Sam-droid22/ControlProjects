@@ -33,11 +33,15 @@ class ClientResource extends Resource
                         'ruc' => 'R.U.C',
                         'ci' => 'Cedula de Identidad',
                     ])
+                    ->default('ci')
                     ->required(),
-                Forms\Components\TextInput::make('number')
-                    ->label('Numero:')
-                    ->placeholder('Número de RUC o CI')
-                    ->required(),
+                Forms\Components\TextInput::make('id_number')
+                    ->label('Número:')
+                    ->inputMode('numeric')
+                    ->placeholder('RUC o C.I.')
+                    ->mask('9999999-9')
+                    ->extraInputAttributes(['pattern' => '[0-9\-]*'])
+                    ->maxLength(11),
                 Forms\Components\TextInput::make('email')
                     ->label('Correo Electrónico:')
                     ->email()
@@ -45,7 +49,10 @@ class ClientResource extends Resource
                 Forms\Components\TextInput::make('phone')
                     ->label('Tel:')
                     ->tel()
-                    ->placeholder('0975555555')
+                    ->prefix(+595)
+                    ->mask('999999999')
+                    ->placeholder('Ej: 975555555')
+                    ->maxLength(9)
                     ->required(),
                 Forms\Components\TextInput::make('address')
                     ->label('Dirección')
@@ -65,7 +72,11 @@ class ClientResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->label('Cel')
-                    ->searchable(),
+                    ->searchable()
+                    ->url(fn($record) => 'https://wa.me/' . preg_replace('/[^0-9]/', '', $record->phone), true)
+                    ->openUrlInNewTab()
+                    ->color('success')
+                    ->width('bold'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
